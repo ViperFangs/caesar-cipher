@@ -1,40 +1,38 @@
-def caesar_cipher(string, key)
+DOWNCASE_ALPHABET_LOWER_RANGE = 97
+DOWNCASE_ALPHABET_UPPER_RANGE = 122
+UPCASE_ALPHABET_LOWER_RANGE = 65
+UPCASE_ALPHABET_UPPER_RANGE = 90
+SHIFT_TO_BASE_VALUE = 26
 
-  if key <= 0 
-    return string
+#predicate method to check if a character is an alphabet
+def alphabet_range?(value)
+
+  if value.is_a? Integer
+    value.between?(DOWNCASE_ALPHABET_LOWER_RANGE, DOWNCASE_ALPHABET_UPPER_RANGE) or value.ord.between?(UPCASE_ALPHABET_LOWER_RANGE, UPCASE_ALPHABET_UPPER_RANGE)
+  else
+    value.ord.between?(DOWNCASE_ALPHABET_LOWER_RANGE, DOWNCASE_ALPHABET_UPPER_RANGE) or value.ord.between?(UPCASE_ALPHABET_LOWER_RANGE, UPCASE_ALPHABET_UPPER_RANGE)
   end
-
-  string.split("").map {|character| caesar_cipher_helper(character, key)}.join("")
 
 end
 
 def caesar_cipher_helper(character, key)
-
-  if character.ord.between?(97,122)
-
-    unless character.ord + key > 122
-      character = character.ord + key
-      character = character.chr
-    else 
-      character = character.ord - 25 + key
-      character = character.chr
-    end
-
-  elsif character.ord.between?(60,90)
-
-    unless character.ord + key > 90
-      character = character.ord + key
-      character = character.chr
-    else 
-      character = character.ord - 26 + key
-      character = character.chr
-    end
-
+  #Check if the character is between lower case and upper case
+  if alphabet_range?(character)
+    alphabet_range?(character.ord + key) ? character = (character.ord + key).chr : character = (character.ord - SHIFT_TO_BASE_VALUE + key).chr
+  #return character if it isnt an alphabet
   else 
     character
   end
 
 end
 
+def caesar_cipher(string, key)
+  #return same string if key is 0 or less than 0
+  if key <= 0 
+    return string
+  end
+  #split the string into an array, and then call the map function to each iteration and finally join it back into a string
+  string.split("").map {|character| caesar_cipher_helper(character, key)}.join("")
 
+end
 
