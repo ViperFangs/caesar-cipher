@@ -31,7 +31,7 @@ def caesar_cipher(string, key)
   if key <= 0 
     return string
   end
-  #split the string into an array, and then call the map function to each iteration and finally join it back into a string
+  #split the string into an array, then call the map function to each element and finally join it back into a string
   string.split("").map {|character| caesar_cipher_helper(character, key)}.join("")
 
 end
