@@ -32,7 +32,10 @@ def caesar_cipher(string, key)
     return string
   end
   #split the string into an array, then call the map function to each element and finally join it back into a string
-  puts encrypted_string = string.split("").map {|character| caesar_cipher_helper(character, key)}.join("")
+  encrypted_string = string.split("").map {|character| caesar_cipher_helper(character, key)}.join("")
+  puts encrypted_string
+  return encrypted_string
 
 end
 
+caesar_cipher("What a string!", 5)
