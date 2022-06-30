@@ -1,22 +1,15 @@
 # frozen_string_literal: true
 
-DOWNCASE_ALPHABET_LOWER_RANGE = 97
-DOWNCASE_ALPHABET_UPPER_RANGE = 122
-UPCASE_ALPHABET_LOWER_RANGE = 65
-UPCASE_ALPHABET_UPPER_RANGE = 90
+DOWNCASE_LOWER_RANGE = 97
+DOWNCASE_UPPER_RANGE = 122
+UPCASE_LOWER_RANGE = 65
+UPCASE_UPPER_RANGE = 90
 SHIFT_TO_BASE_VALUE = 26
 
 # predicate method to check if a character is an alphabet
 def alphabet_range?(value)
-  if value.is_a? Integer
-    value.between?(DOWNCASE_ALPHABET_LOWER_RANGE,
-                   DOWNCASE_ALPHABET_UPPER_RANGE) or value.between?(UPCASE_ALPHABET_LOWER_RANGE,
-                                                                    UPCASE_ALPHABET_UPPER_RANGE)
-  else
-    value.ord.between?(DOWNCASE_ALPHABET_LOWER_RANGE,
-                       DOWNCASE_ALPHABET_UPPER_RANGE) or value.ord.between?(UPCASE_ALPHABET_LOWER_RANGE,
-                                                                            UPCASE_ALPHABET_UPPER_RANGE)
-  end
+  value = value.ord unless value.is_a? Integer
+  value.between?(DOWNCASE_LOWER_RANGE, DOWNCASE_UPPER_RANGE) or value.between?(UPCASE_LOWER_RANGE, UPCASE_UPPER_RANGE)
 end
 
 def caesar_cipher_helper(character, key)
