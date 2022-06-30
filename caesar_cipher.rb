@@ -32,5 +32,3 @@ class CaesarCipher
     alphabet_range?(character.ord + key) ? (character.ord + key).chr : (character.ord - SHIFT_TO_BASE_VALUE + key).chr
   end
 end
-
-puts CaesarCipher.new.encrypt('What a string!', 5)
