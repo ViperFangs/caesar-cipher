@@ -16,19 +16,20 @@ class CaesarCipher
   DOWNCASE_UPPER_RANGE = 122
   UPCASE_LOWER_RANGE = 65
   UPCASE_UPPER_RANGE = 90
-  SHIFT_TO_BASE_VALUE = 26
+  BASE_VALUE = 26
 
   # predicate method to check if a character is an alphabet
   def alphabet_range?(value)
     value = value.ord unless value.is_a? Integer
-    value.between?(DOWNCASE_LOWER_RANGE, DOWNCASE_UPPER_RANGE) or value.between?(UPCASE_LOWER_RANGE, UPCASE_UPPER_RANGE)
+    value.between?(DOWNCASE_LOWER_RANGE, DOWNCASE_UPPER_RANGE) ^ value.between?(UPCASE_LOWER_RANGE, UPCASE_UPPER_RANGE)
   end
 
   def encrypt_helper(character, key)
     # Check if the character is between lower case and upper case
     return character unless alphabet_range?(character)
 
+    key = key % BASE_VALUE
     # if the current character + key is greater than Z then it shifts it back to the base value
-    alphabet_range?(character.ord + key) ? (character.ord + key).chr : (character.ord - SHIFT_TO_BASE_VALUE + key).chr
+    alphabet_range?(character.ord + key) ? (character.ord + key).chr : (character.ord - BASE_VALUE + key).chr
   end
 end
