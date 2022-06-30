@@ -41,5 +41,10 @@ describe CaesarCipher do
       encrypted = CaesarCipher.new.encrypt('HELLO', 26)
       expect(encrypted).to eql 'HELLO'
     end
+
+    it 'Works with all lowercase letters' do
+      encrypted = CaesarCipher.new.encrypt('hello', 52)
+      expect(encrypted).to eql 'hello'
+    end
   end
 end
